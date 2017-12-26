@@ -18,18 +18,18 @@ public interface PersonWebService{
     @WebMethod String getHelloWorldAsString(String name);
 
 	@WebMethod List<Person> getPersonList();
-	@WebMethod Person getPerson(Long id);
+	@WebMethod Person getPerson(Integer id);
 	@WebMethod Person updatePerson(Person person);
 	@WebMethod Person createPerson(Person person);
 	@WebMethod void deletePerson(Person person);
 
-	@WebMethod List<Activity> readPersonPreferences(Long id, String type);
+	@WebMethod List<Activity> readPersonPreferences(Integer id, String type);
 	
 	@WebMethod List<Activity> readPreferences();
 
-	@WebMethod Activity readPersonPreference(Long id, Long long1);
+	@WebMethod Activity readPersonPreference(Integer id, Integer activityId);
 
-	@WebMethod void savePersonPreference(Long id, Activity activity);
+	@WebMethod void savePersonPreference(Integer id, Activity activity);
 
-	@WebMethod Activity updatePersonPreference(Long id, Activity activity);
+	@WebMethod Activity updatePersonPreference(Integer id, Activity activity);
 }

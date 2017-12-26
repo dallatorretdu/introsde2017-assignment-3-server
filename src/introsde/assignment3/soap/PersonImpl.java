@@ -5,7 +5,6 @@ import java.util.List;
 import javax.jws.WebService;
 
 import introsde.assignment3.soap.PersonWebService;
-import javassist.NotFoundException;
 import unitn.dallatorre.entities.Activity;
 import unitn.dallatorre.entities.ActivityType;
 import unitn.dallatorre.entities.ActivityWrapper;
@@ -31,8 +30,8 @@ public class PersonImpl implements PersonWebService{
 	}
 
 	@Override
-	public Person getPerson(Long id) {
-		Person databasePerson = Person.getPersonById(id.intValue());
+	public Person getPerson(Integer id) {
+		Person databasePerson = Person.getPersonById(id);
 		checkPersonExists(databasePerson);
 		return databasePerson;
 	}
@@ -82,8 +81,8 @@ public class PersonImpl implements PersonWebService{
 	}
 
 	@Override
-	public List<Activity> readPersonPreferences(Long id, String type) {
-		Person databasePerson = Person.getPersonById(id.intValue());
+	public List<Activity> readPersonPreferences(Integer id, String type) {
+		Person databasePerson = Person.getPersonById(id);
 		checkPersonExists(databasePerson);
 		
 		ActivityWrapper activities = new ActivityWrapper();
@@ -100,19 +99,19 @@ public class PersonImpl implements PersonWebService{
 	}
 
 	@Override
-	public Activity readPersonPreference(Long id, Long activityId) {
-		Person databasePerson = Person.getPersonById(id.intValue());
+	public Activity readPersonPreference(Integer id, Integer activityId) {
+		Person databasePerson = Person.getPersonById(id);
 		checkPersonExists(databasePerson);
 		
 		ActivityWrapper activities = new ActivityWrapper();
 		activities.setActivity(databasePerson.getActivitypreference());
-		activities.filterActivities(activityId.intValue());
+		activities.filterActivities(activityId);
 		return activities.getActivity().get(0);
 	}
 
 	@Override
-	public void savePersonPreference(Long id, Activity activity) {
-		Person databasePerson = Person.getPersonById(id.intValue());
+	public void savePersonPreference(Integer id, Activity activity) {
+		Person databasePerson = Person.getPersonById(id);
 		checkPersonExists(databasePerson);
 		ActivityType activityType = ActivityType.getById(activity.getType().getType());
 		if(activityType == null) {
@@ -134,8 +133,8 @@ public class PersonImpl implements PersonWebService{
 	}
 
 	@Override
-	public Activity updatePersonPreference(Long id, Activity activity) {
-		Person databasePerson = Person.getPersonById(id.intValue());
+	public Activity updatePersonPreference(Integer id, Activity activity) {
+		Person databasePerson = Person.getPersonById(id);
 		checkPersonExists(databasePerson);
 		ActivityType activityType = ActivityType.getById(activity.getType().getType());
 		if (activityType == null) {
