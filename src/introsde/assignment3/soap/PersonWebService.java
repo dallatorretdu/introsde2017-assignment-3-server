@@ -26,4 +26,6 @@ public interface PersonWebService{
 	@WebMethod List<Activity> readPersonPreferences(Long id, String type);
 	
 	@WebMethod List<Activity> readPreferences();
+
+	@WebMethod Activity readPersonPreference(Long id, Long long1);
 }

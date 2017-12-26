@@ -98,4 +98,15 @@ public class PersonImpl implements PersonWebService{
 	public List<Activity> readPreferences() {
 		return Activity.getAllActivities();
 	}
+
+	@Override
+	public Activity readPersonPreference(Long id, Long activityId) {
+		Person databasePerson = Person.getPersonById(id.intValue());
+		checkPersonExists(databasePerson);
+		
+		ActivityWrapper activities = new ActivityWrapper();
+		activities.setActivity(databasePerson.getActivitypreference());
+		activities.filterActivities(activityId.intValue());
+		return activities.getActivity().get(0);
+	}
 }
