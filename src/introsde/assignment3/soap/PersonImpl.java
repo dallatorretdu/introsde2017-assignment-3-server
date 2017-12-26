@@ -8,6 +8,7 @@ import introsde.assignment3.soap.PersonWebService;
 import javassist.NotFoundException;
 import unitn.dallatorre.entities.Activity;
 import unitn.dallatorre.entities.ActivityType;
+import unitn.dallatorre.entities.ActivityWrapper;
 import unitn.dallatorre.entities.Person;
 //Service Implementation
 @WebService(endpointInterface = "introsde.assignment3.soap.PersonWebService")
@@ -78,5 +79,18 @@ public class PersonImpl implements PersonWebService{
 		Person databasePerson = Person.getPersonById(person.getId());
 		checkPersonExists(databasePerson);
 		Person.removePerson(person);
+	}
+
+	@Override
+	public List<Activity> readPersonPreferences(Long id, String type) {
+		Person databasePerson = Person.getPersonById(id.intValue());
+		checkPersonExists(databasePerson);
+		
+		ActivityWrapper activities = new ActivityWrapper();
+		activities.setActivity(databasePerson.getActivitypreference());
+		ActivityType activityType = new ActivityType();
+		activityType.setType(type);
+		activities.filterActivities(activityType);
+		return activities.getActivity();
 	}
 }

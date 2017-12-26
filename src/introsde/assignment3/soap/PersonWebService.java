@@ -8,6 +8,7 @@ import javax.jws.soap.SOAPBinding;
 import javax.jws.soap.SOAPBinding.Style;
 import javax.jws.soap.SOAPBinding.Use;
 
+import unitn.dallatorre.entities.Activity;
 import unitn.dallatorre.entities.Person;
 
 //Service Endpoint Interface
@@ -21,4 +22,6 @@ public interface PersonWebService{
 	@WebMethod Person updatePerson(Person person);
 	@WebMethod Person createPerson(Person person);
 	@WebMethod void deletePerson(Person person);
+
+	@WebMethod List<Activity> readPersonPreferences(Long id, String type);
 }
