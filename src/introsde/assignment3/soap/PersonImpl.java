@@ -93,4 +93,9 @@ public class PersonImpl implements PersonWebService{
 		activities.filterActivities(activityType);
 		return activities.getActivity();
 	}
+
+	@Override
+	public List<Activity> readPreferences() {
+		return Activity.getAllActivities();
+	}
 }

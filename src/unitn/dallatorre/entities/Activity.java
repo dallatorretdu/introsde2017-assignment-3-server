@@ -3,6 +3,7 @@ package unitn.dallatorre.entities;
 import java.io.Serializable;
 import java.time.ZonedDateTime;
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -14,6 +15,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.TypedQuery;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
@@ -119,6 +121,13 @@ public class Activity implements Serializable{
 		Activity a = em.find(Activity.class, activityId);		// Use FIND to search by ID
 		PersonActivitiesDao.instance.closeConnections(em);
 		return a;
+	}
+	
+	// Get all the Activities elements form the DB using a Named Query
+	public static List<Activity> getAllActivities() {
+		EntityManager em = PersonActivitiesDao.instance.createEntityManager();
+		TypedQuery<Activity> query = em.createQuery("SELECT a FROM Activity a",Activity.class);
+		return query.getResultList();
 	}
 	
 	// Overridden the Equals method so I could check if an activity is .equals automatically checking based on it's ID and NAME

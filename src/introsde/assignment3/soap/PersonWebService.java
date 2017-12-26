@@ -24,4 +24,6 @@ public interface PersonWebService{
 	@WebMethod void deletePerson(Person person);
 
 	@WebMethod List<Activity> readPersonPreferences(Long id, String type);
+	
+	@WebMethod List<Activity> readPreferences();
 }
