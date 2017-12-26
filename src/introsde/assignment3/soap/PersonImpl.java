@@ -126,6 +126,7 @@ public class PersonImpl implements PersonWebService{
 		newActivity.setName(activity.getName());
 		newActivity.setPlace(activity.getPlace());
 		newActivity.setStartdate(activity.getStartdate());
+		newActivity.setPreference(activity.getPreference());
 		
 		databasePerson.getActivitypreference().add(newActivity);
 		databasePerson = Person.updatePerson(databasePerson);
@@ -151,8 +152,29 @@ public class PersonImpl implements PersonWebService{
 		databasePerson.getActivitypreference().get( indexOf ).setName(activity.getName());
 		databasePerson.getActivitypreference().get( indexOf ).setPlace(activity.getPlace());
 		databasePerson.getActivitypreference().get( indexOf ).setStartdate(activity.getStartdate());
+		databasePerson.getActivitypreference().get( indexOf ).setPreference(activity.getPreference());
 		databasePerson = Person.updatePerson(databasePerson);
 		
 		return databasePerson.getActivitypreference().get( indexOf );
+	}
+
+	@Override
+	public Activity evaluatePersonPreference(Integer id, Activity activity, Integer value) {
+		if( value<0 || value>10 ) {
+			throw new IllegalArgumentException("Preference rating should be between 0 and 10");
+		}
+		activity.setPreference(value);
+		return updatePersonPreference(id, activity);
+	}
+
+	@Override
+	public List<Activity> getBestPersonPreferences(Integer id) {
+		Person databasePerson = Person.getPersonById(id);
+		checkPersonExists(databasePerson);
+		
+		ActivityWrapper activities = new ActivityWrapper();
+		activities.setActivity(databasePerson.getActivitypreference());
+		activities.filterBestActivities();
+		return activities.getActivity();
 	}
 }

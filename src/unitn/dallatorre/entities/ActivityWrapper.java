@@ -59,5 +59,25 @@ public class ActivityWrapper implements Serializable{
 		activity.addAll(filteredActivities);
 		return getActivity();
 	}
+
+	public List<Activity> filterBestActivities() {
+		List<Activity> filteredActivities = new ArrayList<Activity>();
+		Integer maxValue = -1;
+		for (final Activity activity : activity) {
+			Integer value = activity.getPreference();
+			if (value == null) {
+				value = -1;
+			}
+			maxValue = Math.max(maxValue,value);
+		}
+		for (final Activity activity : activity) {
+			if (activity.getPreference() == maxValue) {
+				filteredActivities.add(activity);
+			}
+		}
+		activity.clear();
+		activity.addAll(filteredActivities);
+		return getActivity();
+	}
 		
 }

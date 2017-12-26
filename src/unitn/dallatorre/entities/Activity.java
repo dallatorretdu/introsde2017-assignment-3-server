@@ -49,6 +49,9 @@ public class Activity implements Serializable{
     @XmlElement(required = true)
     protected Date startdate;						// Start Date
     
+    @XmlElement(required = false)
+    protected Integer preference;
+    
 	public Integer getId() {						// GETTERS AND SETTERS
 		return id;
 	}
@@ -84,6 +87,12 @@ public class Activity implements Serializable{
 	}
 	public void setStartdate(Date startdate) {
 		this.startdate = startdate;
+	}
+	public Integer getPreference() {
+		return preference;
+	}
+	public void setPreference(Integer preference) {
+		this.preference = preference;
 	}
 
 	public static Activity saveActivity(Activity a) {	// PERSISTENCE Method

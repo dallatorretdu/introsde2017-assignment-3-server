@@ -62,6 +62,7 @@ public class InitializerImpl implements InitializerWebService {
 			a.setPlace(place);
 			a.setStartdate(new Date(System.currentTimeMillis()));
 			a.setType(activityType);
+			a.setPreference(3);
 			a=Activity.updateActivity(a);
 			return a;
 		}

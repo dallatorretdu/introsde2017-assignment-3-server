@@ -18,9 +18,13 @@ public interface PersonWebService{
     @WebMethod String getHelloWorldAsString(String name);
 
 	@WebMethod List<Person> getPersonList();
+	
 	@WebMethod Person getPerson(Integer id);
+	
 	@WebMethod Person updatePerson(Person person);
+	
 	@WebMethod Person createPerson(Person person);
+	
 	@WebMethod void deletePerson(Person person);
 
 	@WebMethod List<Activity> readPersonPreferences(Integer id, String type);
@@ -32,4 +36,8 @@ public interface PersonWebService{
 	@WebMethod void savePersonPreference(Integer id, Activity activity);
 
 	@WebMethod Activity updatePersonPreference(Integer id, Activity activity);
+
+	@WebMethod Activity evaluatePersonPreference(Integer id, Activity activity, Integer value);
+
+	@WebMethod List<Activity> getBestPersonPreferences(Integer id);
 }
