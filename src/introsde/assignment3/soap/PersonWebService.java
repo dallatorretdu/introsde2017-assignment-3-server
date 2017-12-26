@@ -28,4 +28,8 @@ public interface PersonWebService{
 	@WebMethod List<Activity> readPreferences();
 
 	@WebMethod Activity readPersonPreference(Long id, Long long1);
+
+	@WebMethod void savePersonPreference(Long id, Activity activity);
+
+	@WebMethod Activity updatePersonPreference(Long id, Activity activity);
 }

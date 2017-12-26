@@ -58,14 +58,14 @@ public class PersonImpl implements PersonWebService{
 			List<Activity> activityPreference = person.getActivitypreference();
 			for (Activity activity : activityPreference) {
 				if(activity.getId() != null) {
-					new IllegalArgumentException("cannot generate an activity with a given ID");
+					throw new IllegalArgumentException("cannot generate an activity with a given ID");
 				}
 				if(activity.getType() == null) {
-					new IllegalArgumentException("an activity should have a type associated");
+					throw new IllegalArgumentException("an activity should have a type associated");
 				}
 				ActivityType activityType = ActivityType.getById(activity.getType().getType());
 				if(activityType == null) {
-					new IllegalArgumentException("activity type not recognized");
+					throw new IllegalArgumentException("activity type not recognized");
 				}
 				activity.setType(activityType);
 			}
@@ -108,5 +108,52 @@ public class PersonImpl implements PersonWebService{
 		activities.setActivity(databasePerson.getActivitypreference());
 		activities.filterActivities(activityId.intValue());
 		return activities.getActivity().get(0);
+	}
+
+	@Override
+	public void savePersonPreference(Long id, Activity activity) {
+		Person databasePerson = Person.getPersonById(id.intValue());
+		checkPersonExists(databasePerson);
+		ActivityType activityType = ActivityType.getById(activity.getType().getType());
+		if(activityType == null) {
+			throw new IllegalArgumentException("Activity Type not found");
+		}
+		if(activity.getId() != null) {
+			throw new IllegalArgumentException("Cannot generate a new activity with a given ID");
+		}
+		
+		Activity newActivity = new Activity();
+		newActivity.setType(activityType);
+		newActivity.setName(activity.getName());
+		newActivity.setPlace(activity.getPlace());
+		newActivity.setStartdate(activity.getStartdate());
+		
+		databasePerson.getActivitypreference().add(newActivity);
+		databasePerson = Person.updatePerson(databasePerson);
+		
+	}
+
+	@Override
+	public Activity updatePersonPreference(Long id, Activity activity) {
+		Person databasePerson = Person.getPersonById(id.intValue());
+		checkPersonExists(databasePerson);
+		ActivityType activityType = ActivityType.getById(activity.getType().getType());
+		if (activityType == null) {
+			throw new IllegalArgumentException("Non existant activity type");
+		}
+		Activity databaseActivity = Activity.getActivityById(activity.getId());
+		if (databaseActivity == null) {
+			throw new IllegalArgumentException("No activity with given ID");
+		}
+		
+		int indexOf = databasePerson.getActivitypreference().indexOf(databaseActivity);
+		databasePerson.getActivitypreference().get( indexOf ).setType(activityType);
+		databasePerson.getActivitypreference().get( indexOf ).setDescription(activity.getDescription());
+		databasePerson.getActivitypreference().get( indexOf ).setName(activity.getName());
+		databasePerson.getActivitypreference().get( indexOf ).setPlace(activity.getPlace());
+		databasePerson.getActivitypreference().get( indexOf ).setStartdate(activity.getStartdate());
+		databasePerson = Person.updatePerson(databasePerson);
+		
+		return databasePerson.getActivitypreference().get( indexOf );
 	}
 }
