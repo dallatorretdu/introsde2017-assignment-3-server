@@ -17,6 +17,8 @@ public interface PersonWebService{
     @WebMethod String getHelloWorldAsString(String name);
 
 	@WebMethod List<Person> getPersonList();
-
 	@WebMethod Person getPerson(Long id);
+	@WebMethod Person updatePerson(Person person);
+	@WebMethod Person createPerson(Person person);
+	@WebMethod void deletePerson(Person person);
 }
