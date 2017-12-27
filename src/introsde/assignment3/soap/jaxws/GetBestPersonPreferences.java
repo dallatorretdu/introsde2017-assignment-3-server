@@ -7,20 +7,20 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 
-@XmlRootElement(name = "getHelloWorldAsString", namespace = "http://soap.assignment3.introsde/")
+@XmlRootElement(name = "getBestPersonPreferences", namespace = "http://soap.assignment3.introsde/")
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "getHelloWorldAsString", namespace = "http://soap.assignment3.introsde/")
-public class GetHelloWorldAsString {
+@XmlType(name = "getBestPersonPreferences", namespace = "http://soap.assignment3.introsde/")
+public class GetBestPersonPreferences {
 
     @XmlElement(name = "arg0", namespace = "")
-    private String arg0;
+    private Integer arg0;
 
     /**
      * 
      * @return
-     *     returns String
+     *     returns Integer
      */
-    public String getArg0() {
+    public Integer getArg0() {
         return this.arg0;
     }
 
@@ -29,7 +29,7 @@ public class GetHelloWorldAsString {
      * @param arg0
      *     the value for the arg0 property
      */
-    public void setArg0(String arg0) {
+    public void setArg0(Integer arg0) {
         this.arg0 = arg0;
     }
 
