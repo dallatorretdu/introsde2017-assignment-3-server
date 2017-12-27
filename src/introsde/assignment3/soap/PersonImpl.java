@@ -51,13 +51,13 @@ public class PersonImpl implements PersonWebService{
 	@Override
 	public Person createPerson(Person person) {
 		if (person.getId() != null) {
-			throw new IllegalArgumentException("Id Cannot be choosen before creation.");
+			person.setId(null);
 		}
 		if (person.getActivitypreference() != null) {
 			List<Activity> activityPreference = person.getActivitypreference();
 			for (Activity activity : activityPreference) {
 				if(activity.getId() != null) {
-					throw new IllegalArgumentException("cannot generate an activity with a given ID");
+					activity.setId(null);
 				}
 				if(activity.getType() == null) {
 					throw new IllegalArgumentException("an activity should have a type associated");
@@ -118,7 +118,7 @@ public class PersonImpl implements PersonWebService{
 			throw new IllegalArgumentException("Activity Type not found");
 		}
 		if(activity.getId() != null) {
-			throw new IllegalArgumentException("Cannot generate a new activity with a given ID");
+			activity.setId(null);
 		}
 		
 		Activity newActivity = new Activity();
