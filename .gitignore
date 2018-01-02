@@ -12,6 +12,7 @@
 !WebContent/*/*/
 !WebContent/*/*/*/
 !WebContent/WEB-INF/web.xml
+!WebContent/WEB-INF/sun-jaxws.xml
 !WebContent/WEB-INF/classes/META-INF/persistence.xml
 
 !src/META-INF/
